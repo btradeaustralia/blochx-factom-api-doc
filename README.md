@@ -1,10 +1,15 @@
-## API
+# BlochX Factom API
+
+The API is currently hosted at `http://blochx-factom-api.bittradelabs.com`
 
 ### HMAC Authentication
 
+This API uses [HMAC](https://en.wikipedia.org/wiki/Hash-based_message_authentication_code)
+based authentication.
+
 HMAC authentication is applied as follows:
 
-Take a request of JSON format, eg:
+Take a request of JSON format, e.g:
 
 ```json
 {
@@ -13,9 +18,11 @@ Take a request of JSON format, eg:
 }
 ```
 
-Serialized that request: `const serd_data = '{"to_publish":{"a json":"document"}, "chain_id": "000000...."}';`
+Serialize that request e.g. in JavaScript
 
-Construct the hmac over `serd_data` and use it as value for the `payload` field, as a string:
+`var serd_data = '{"to_publish":{"a json":"document"}, "chain_id": "000000...."}';`
+
+Construct the HMAC over `serd_data` and use it as value for the `payload` field, as a string:
 
 ```json
 {
@@ -24,6 +31,44 @@ Construct the hmac over `serd_data` and use it as value for the `payload` field,
     "user_id": "ec08708e50a7b5af5eebba66a8793c693d631fd9659c658c4100057ae8151268"  // optional, not currently used
 }
 ```
+
+See the section below for ways to experiment with HMAC without any programming
+but using command line and online tools instead.
+
+## Using curl and online HMAC generator to experiment
+
+Before you write your API (in your programming language of choice) you can play with
+this endpoint using the command line tool: `curl`
+
+You would send the POST request above using (all on one line)
+
+    curl --data-binary '{ "payload": "{\"final hmac test\": \"passed!\"}",     "hmac":"1d55296fe49dd34b6889e6bf9a8a1a772c1b4ff291872204bdfd4b8698425428" }' http://blochx-factom-api.bittradelabs.com/api0/publish_data
+
+But how did we get this HMAC in the first place? You can use [`http://www.freeformatter.com/hmac-generator.html`](http://www.freeformatter.com/hmac-generator.html) . Make sure you select SHA256 from the dropdown and use test as your Secret Key.
+
+You need to hash the payload, however there is a catch. Simply copying and
+pasting the payload above will not work. Why? Because the `\"` are what are
+called escape sequences. The only reason they appear at all in the Sample Post
+Request and curl command line above is because JSON uses double quotes (`"`)
+itself. So how do you represent double quotes inside an encoding that uses
+double quotes? Simple: you distinguish them with a slash in front of them.
+
+However, the real string that you are HMACing is as follows (spaces important!)
+
+    {"final hmac test": "passed!"}
+
+(Essentially you just replace `\"` with `"` everywhere)
+
+If you HMAC that in the online HMAC page (`http://www.freeformatter.com/hmac-
+generator.html`) you should get:
+
+    1d55296fe49dd34b6889e6bf9a8a1a772c1b4ff291872204bdfd4b8698425428
+
+You won't have to worry about escape sequences explicitly in your programming
+language of choice. It should handle escaping for you. But when you're trying
+stuff out manually you'll need to be aware of this.
+
+## API Endpoints
 
 ### GET `/api0/info`
 
