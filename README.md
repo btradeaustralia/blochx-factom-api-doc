@@ -1,6 +1,6 @@
 # BlochX Factom API
 
-The API is currently hosted at `http://blochx-factom-api.bittradelabs.com`
+The API is currently hosted at [`http://blochx-factom-api.bittradelabs.com`](`http://blochx-factom-api.bittradelabs.com`)
 
 ### HMAC Authentication
 
@@ -174,7 +174,7 @@ Sample Response:
 
 ```json
 { "okay": true,
-  "chain_id": "ec08708e50a7b5af5eebba66a8793c693d631fd9659c658c4100057ae8151268,
+  "chain_id": "ec08708e50a7b5af5eebba66a8793c693d631fd9659c658c4100057ae8151268",
   "name": "local-chain-descriptor"
 }
 ```
