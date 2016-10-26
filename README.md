@@ -44,7 +44,7 @@ You would send the POST request above using (all on one line)
 
     curl --data-binary '{ "payload": "{\"final hmac test\": \"passed!\"}",     "hmac":"1d55296fe49dd34b6889e6bf9a8a1a772c1b4ff291872204bdfd4b8698425428" }' http://blochx-factom-api.bittradelabs.com/api0/publish_data
 
-But how did we get this HMAC in the first place? You can use [`http://www.freeformatter.com/hmac-generator.html`](http://www.freeformatter.com/hmac-generator.html) . Make sure you select SHA256 from the dropdown and use test as your Secret Key.
+But how did we get this HMAC in the first place? You can use [`http://www.freeformatter.com/hmac-generator.html`](http://www.freeformatter.com/hmac-generator.html) . Make sure you select SHA256 from the dropdown and use your Secret Key.
 
 You need to hash the payload, however there is a catch. Simply copying and
 pasting the payload above will not work. Why? Because the `\"` are what are
