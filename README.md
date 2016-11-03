@@ -91,12 +91,18 @@ Post payload should be JSON.
 
 This request is authenticated with an HMAC and a shared key (for now, later on shared keys can be user specific by including a userid).
 
-Sample Post Request:
+**Sample Post Request**
+
+The following POST request will publish the following to Factom Blockchain.
+
+    {"to_publish":{"final hmac test":"passed!"}}
+
+Here is the body of the POST request:
 
 ```json
 {
-    "payload": "{\"to_publish\": \"{\"final hmac test\": \"passed!\"}\"}",
-    "hmac": "1d55296fe49dd34b6889e6bf9a8a1a772c1b4ff291872204bdfd4b8698425428"
+    "payload": "{\"to_publish\":{\"final hmac test\":\"passed!\"}}"
+    "hmac": "b6bdfedf93ea154398753711016f0c799fa7aaa513c52156810daaa84ff77110"
 }
 ```
 
