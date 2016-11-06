@@ -95,13 +95,24 @@ This request is authenticated with an HMAC and a shared key (for now, later on s
 
 The following POST request will publish the following to Factom Blockchain.
 
-    {"to_publish":{"final hmac test":"passed!"}}
+    { "final hmac test" : "passed!" }
+
+First you create the right JSON object for the payload
+
+    { "to_publish" : { "final hmac test":"passed!" } }
+
+And then serialize it to
+
+    "{\"to_publish\":{\"final hmac test\":\"passed!\"}}"
+
+(this particular serialization removed all the spaces but it doesn't have to,
+the important thing is that the HMAC is done on the _serialized_ string)
 
 Here is the body of the POST request:
 
 ```json
 {
-    "payload": "{\"to_publish\":{\"final hmac test\":\"passed!\"}}"
+    "payload": "{\"to_publish\":{\"final hmac test\":\"passed!\"}}",
     "hmac": "b6bdfedf93ea154398753711016f0c799fa7aaa513c52156810daaa84ff77110"
 }
 ```
