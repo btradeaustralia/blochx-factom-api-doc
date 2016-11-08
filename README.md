@@ -87,7 +87,14 @@ Gives some super basic info, just to confirm that we're running and can read fac
 
 ### POST `/api0/publish_data`
 
-Post payload should be JSON.
+Post payload should be either
+
+1. a JSON object
+2. a JSON array containing JSON objects
+
+In case 1 a single entry will be published to a Factom chain.
+In case 2 multiple single entries will be published to a Factom chain, one
+for each object in the JSON array.
 
 This request is authenticated with an HMAC and a shared key (for now, later on shared keys can be user specific by including a userid).
 
